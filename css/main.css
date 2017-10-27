@@ -45,3 +45,7 @@ li img {
     float: left;
     border-radius: 50%;
 }
+
+li div {
+    float: right;
+}
