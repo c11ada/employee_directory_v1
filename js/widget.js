@@ -2,7 +2,7 @@ $(document).ready(function() {
 
     let employees;
     let resultCount = 12;
-    let url = "https://randomuser.me/api/?results=" + resultCount;
+    let url = "https://randomuser.me/api/?results=" + resultCount + "&nat=us,dk,fr,gb";
 
     $.ajax({
         url: url,
