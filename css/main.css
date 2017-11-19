@@ -80,8 +80,9 @@ ul {
 
 .modal img {
     border-radius: 50%;
-    margin: auto;
-    padding: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .test {
