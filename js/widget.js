@@ -1,7 +1,9 @@
 $(document).ready(function() {
-
+    
+    let ajaxResult;
     let employees;
-    let employeeIndex
+    let employeeIndex;
+    let filteredEmployees;
     let resultCount = 12;
     let url = "https://randomuser.me/api/?results=" + resultCount + "&nat=us,dk,fr,gb";
 
@@ -11,33 +13,11 @@ $(document).ready(function() {
         success: function(data) {
             // console.log(data.results);
             employees = data.results;
+            ajaxResult = data.results;
             // console.log(employees);
 
             $.each(employees, function(index,employee){
-                let employeeDiv = $("<div>", {"class":"employee"}); 
-                employeeDiv.click(function(){
-                    employeeClick($(this));
-                }); 
-                
-                employeeDiv.hover(function(){
-                    $(this).toggleClass("employee-hover");
-                });
-
-                let img = $("<img>");
-                img.attr("src",employee.picture.large);
-                let employeeDetails = $("<div>", {"class":"details"});
-                let h3 = $("<h3>");
-                h3.text(employee.name.first + " " + employee.name.last);
-                let emailP = $("<p>");
-                emailP.text(employee.email);
-                let locationP = $("<p>");
-                locationP.text(employee.location.city);
-                employeeDetails.append(h3);
-                employeeDetails.append(emailP);
-                employeeDetails.append(locationP)
-                employeeDiv.append(img);
-                employeeDiv.append(employeeDetails);
-                $("#employees").append(employeeDiv);
+                renderEmployee(employee);
             }); 
         }
     });
@@ -79,6 +59,11 @@ $(document).ready(function() {
         renderEmplyeeCard(employees[employeeIndex]);
     });
 
+    $("#search-btn").click(function(){
+        let searchVal = $("#search input").val();
+        searchEmployee(searchVal);
+    });
+
     const renderEmplyeeCard = (employeeModal) => {
         if(employeeModal.login.username){
             $("#modal-un").text(employeeModal.login.username);
@@ -112,5 +97,53 @@ $(document).ready(function() {
         }
     };
 
+    const renderEmployee = (employee) => {
+        let employeeDiv = $("<div>", {"class":"employee"}); 
+        employeeDiv.click(function(){
+            employeeClick($(this));
+        }); 
+        
+        employeeDiv.hover(function(){
+            $(this).toggleClass("employee-hover");
+        });
+
+        let img = $("<img>");
+        img.attr("src",employee.picture.large);
+        let employeeDetails = $("<div>", {"class":"details"});
+        let h3 = $("<h3>");
+        h3.text(employee.name.first + " " + employee.name.last);
+        let emailP = $("<p>");
+        emailP.text(employee.email);
+        let locationP = $("<p>");
+        locationP.text(employee.location.city);
+        employeeDetails.append(h3);
+        employeeDetails.append(emailP);
+        employeeDetails.append(locationP)
+        employeeDiv.append(img);
+        employeeDiv.append(employeeDetails);
+        $("#employees").append(employeeDiv);
+    }
+
+    const searchEmployee = (searchVal) => {
+        employees = [];
+
+        $.each(ajaxResult, function(index,employee){
+            let name = employee.name.last + " " + employee.name.first;
+            let uname = employee.login.username;
+
+            if (name.includes(searchVal) || uname.includes(searchVal)){
+                employees.push(employee);
+            } 
+        });
+
+        if(employees.length > 0)
+        {
+            $(".employee").remove();
+            $.each(employees, function(index,employee){
+                renderEmployee(employee);
+            });
+        }
+
+    };
 
 });
