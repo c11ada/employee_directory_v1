@@ -7,26 +7,13 @@ $(document).ready(function() {
     let resultCount = 12;
     let url = "https://randomuser.me/api/?results=" + resultCount + "&nat=us,dk,fr,gb";
 
-    $.ajax({
-        url: url,
-        dataType: "json",
-        success: function(data) {
-            // console.log(data.results);
-            employees = data.results;
-            ajaxResult = data.results;
-            // console.log(employees);
 
-            $.each(employees, function(index,employee){
-                renderEmployee(employee);
-            }); 
-        }
-    });
 
     const employeeClick = (employee) => {
         // console.log(employee);
         employeeIndex = $(".employee").index(employee);
         // console.log(employees[employeeIndex]);
-        const employeeModal = employees[employeeIndex];
+        const employeeModal = emloyees[employeeIndex];
 
         renderEmplyeeCard(employeeModal);
 
