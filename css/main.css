@@ -75,7 +75,8 @@ ul {
 
 .modal #modal-un {
     margin-top: 30px;
-    color: darkgray;
+    color: black;
+    font-weight: bold;
 }
 
 .modal img {
@@ -102,6 +103,24 @@ ul {
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
     animation-duration: 0.4s
+}
+
+.modal-nav {
+    margin-bottom: 2em;
+}
+
+.nav-button:hover {
+    cursor: pointer;
+    color: #888;
+}
+
+#next{
+    float: right;
+    margin-right: 1.5em;
+}
+
+#previous {
+    margin-left: 1.5em;
 }
 
 /* Add Animation */
